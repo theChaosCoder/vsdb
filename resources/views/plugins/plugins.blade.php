@@ -205,9 +205,9 @@
 						@endif
 					</td>
                     <td>@if(empty($plugin->shortalias))
-                            {{ $plugin->namespace }}
+                            <a href="/plugins/{{ $plugin->namespace }}" target="_blank">{{ $plugin->namespace }}</a>
                         @else
-                            <small>import</small> {{ $plugin->namespace }} <small>as {{ $plugin->shortalias }}</small>
+                            <small>import</small> <a href="/plugins/{{ $plugin->namespace }}" target="_blank">{{ $plugin->namespace }}</a> <small>as {{ $plugin->shortalias }}</small>
                         @endif
                     </td>
 					<td>{{ $plugin->description }}</td>
