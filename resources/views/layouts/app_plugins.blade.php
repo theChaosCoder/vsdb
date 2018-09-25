@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.semanticui.min.css">
     <style>
-        @import url('//cdn.datatables.net/1.10.2/css/jquery.dataTables.css');
+        @import url('https://cdn.datatables.net/rowgroup/1.0.3/css/rowGroup.semanticui.min.css');
         table.dataTable tr.group td {
             font-weight: bold;
             background-color: #1DB565
