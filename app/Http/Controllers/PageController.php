@@ -7,8 +7,7 @@ use App\Plugin;
 use App\PluginFunction;
 use App\Category;
 use Illuminate\Support\Facades\Storage;
-use ZipArchive;
-use DateTime;
+use App\Vsrepo;
 
 class PageController extends Controller
 {
@@ -96,6 +95,17 @@ class PageController extends Controller
         }
 
         return view('plugins.show', compact('plugins', 'categories'));
+
+    }
+
+
+    /**
+     *
+     */
+    public function vsrepogui()
+    {
+        $plugins = Vsrepo::GetVspackage();
+        return view('plugins.vsrepogui', compact('plugins'));
 
     }
 

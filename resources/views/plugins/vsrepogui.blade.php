@@ -1,7 +1,7 @@
 @extends('layouts.app_plugins')
 @section('content')
 
-
+<?php #collect($plugins);  ?>
 <div class="ui fixed_ inverted menu">
 	<div class="ui container">
 		<a href="/" class="header item">
@@ -20,10 +20,9 @@
     <div class="column">
         <div class="ui message">
             <div class="header">
-                Welcome to vsdb.top - All your <a href="http://www.vapoursynth.com">VapourSynth</a> Plugins in one place! <a class="ui orange label">beta version</a>
+                Huh!? Same plugin list?
             </div>
-            <p>Most of them are also available via the VSRepo plugin manager. For more details visit <a href="https://forum.doom9.org/showthread.php?t=175590">vsrepo - doom9</a> and <a href="https://github.com/vapoursynth/vsrepo">Github</a>.</p>
-            <p>If you have questions or suggestions, visit this forum thread <a href="https://forum.doom9.org/showthread.php?t=175702">vsdb - doom9</a>.</p>
+            <p>No! This page acts as a GUI for VSRepo from <a href="https://github.com/vapoursynth/vsrepo">Github</a>. All data are from there.</p>
         </div>
     </div>
 </div>
@@ -31,13 +30,6 @@
 
 <div class="ui grid vsdb-full">
 	<div class="column">
-
-            <center>
-                <div class="ui toggle checkbox">
-                    <input type="checkbox" name="gpu" id="gpu" value="gpuval">
-                    <label for="gpu">Show only plugins with GPU-Support</label>
-                </div>
-            </center>
 
 		<table id="vsdb" class="ui celled compact padded striped green table selectable ">
 			<thead>
@@ -48,13 +40,13 @@
 					<th class="two wide">Namespace</th>
 					<th>Description</th>
 					<th>Category</th>
-					<th class="center aligned">GPU</th>
 					<th class="center aligned">Published</th>
 					<th class="two wide">Links</th>
 				</tr>
 			</thead>
 			<tbody>
-				@foreach ($plugins as $plugin)
+                @foreach ($plugins as $plugin)
+
 				<tr data-child-value='<td colspan="9">
 						<div class="ui four column very relaxed grid">
 							<?php #info ?>
@@ -66,19 +58,18 @@
 									<tbody>
 										<tr>
 											<td class="three wide column">Identifier</td>
-											<td>{{ $plugin->identifier }}</td>
-										</tr>
+											<td>@if(isset($plugin['identifier'])) {{ $plugin['identifier'] }} @endif</td>
+                                        </tr>
+                                        @isset($plugin['modulename'])
+                                        <tr>
+                                            <td class="three wide column">Modulename</td>
+                                            <td>{{ $plugin['modulename'] }}</td>
+                                        </tr>
+                                        @endisset
 										<tr>
 											<td>Type</td>
-											<td>{{ $plugin->type }}</td>
+											<td>{{ $plugin['type'] }}</td>
                                         </tr>
-                                        @if($plugin->vs_included)
-                                        <tr>
-											<td>Included Plugin</td>
-											<td><a href="{{ $plugin->url_website }}">Link</a></td>
-										</tr>
-                                        @endif
-
 									</tbody>
 								</table>
 							</div>
@@ -88,14 +79,14 @@
 								<h4 class="ui horizontal divider header">
 									<i class="download circle chart icon"></i> Releases
 								</h4>
-								@if(!empty($plugin->releases))
+								@if(!empty($plugin['releases']))
 								<div class="ui icon message">
 									<i class="icon"><img width=40 height=40 src="https://png.icons8.com/metro/50/000000/box.png"></i>
 									<div class="content">
 										<div class="header">
 											VSRrepo is available
 										</div>
-										<p>Install with: <b>vsrepo install {{ $plugin->namespace }}</b></p>
+										<p>Install with: <b>vsrepo install @if(isset($plugin['namespace'])) {{ $plugin['namespace'] }} @else {{ $plugin['modulename'] }} @endif</b></p>
 									</div>
 								</div>
 
@@ -109,11 +100,11 @@
 									</thead>
 									<tbody>
 										<?php
-											$releases_json = json_decode($plugin->releases, true);
+											#$releases_json = json_decode($plugin->releases, true);
 											$rel_counter = 0;
 										?>
 
-										@foreach ($releases_json as $releases)
+										@foreach ($plugin['releases'] as $releases)
 										@if($loop->iteration > 5) {{-- Show only the last 5 download links for now. Todo: "show more" table --}}
 											@php
 												continue;
@@ -153,9 +144,9 @@
 								<h4 class="ui horizontal divider header">
 									<i class="cubes circle chart icon"></i> Dependencies
 								</h4>
-								@if(!empty($plugin->dependencies))
+								@if(isset($plugin['dependencies']))
 								<ul>
-									@foreach (explode(",", $plugin->dependencies) as $dep)
+                                    @foreach ($plugin['dependencies'] as $dep)
 									<li>{{ $dep }}</li>
 									@endforeach
 								</ul>
@@ -163,64 +154,27 @@
 							</div>
 						</div>
 
-
-						<div class="ui column very relaxed grid">
-							<?php #### info ?>
-							<div class="column ui raised">
-								<h4 class="ui horizontal divider header">
-									<i class="cog circle chart icon"></i> Plugin-Functions
-								</h4>
-
-								<table style="margin-bottom: 20px" class="ui definition table">
-									<thead>
-										<tr>
-											<th class="two wide"></th>
-											<th class="two wide center aligned">Bit Depth</th>
-											<th class="two wide center aligned">Color Space</th>
-											<th>Description</th>
-										</tr>
-									</thead>
-									<tbody>
-										@foreach($plugin->functions as $pfunction)
-										<tr>
-											<td>{{ $pfunction['name'] }}</td>
-											<td class="center aligned">{{ $pfunction['bitdepth'] ?: 'unknown' }}</td>
-											<td class="center aligned">{{ $pfunction['colorspace'] ?: 'unknown' }}</td>
-											<td>{{ $pfunction['description'] ?: '-' }}</td>
-										</tr>
-										@endforeach
-									</tbody>
-								</table>
-							</div>
-						</div>
 						</td>'><!-- data-child-value END -->
 
 					<td class="details-control"></td>
-                    <td>{{ $plugin->name }}</td>
+                    <td>{{ $plugin['name'] }}</td>
                     <td class="center aligned">
-						@if ($plugin->type == "PyScript")
-							<img width=20 height=20 alt='{{ $plugin->type }}' src='https://png.icons8.com/metro/50/000000/source-code.png'>
+						@if ($plugin['type'] == "PyScript")
+							<img width=20 height=20 alt='{{ $plugin['type'] }}' src='https://png.icons8.com/metro/50/000000/source-code.png'>
 						@else
-							<img width=20 height=20 alt='{{ $plugin->type }}' src='https://png.icons8.com/metro/50/000000/dll.png'>
+							<img width=20 height=20 alt='{{ $plugin['type'] }}' src='https://png.icons8.com/metro/50/000000/dll.png'>
 						@endif
 					</td>
-                    <td>@if(empty($plugin->shortalias))
-                            <a href="/plugins/{{ $plugin->namespace }}" target="_blank">{{ $plugin->namespace }}</a>
-                        @else
-                            <small>import</small> <a href="/plugins/{{ $plugin->namespace }}" target="_blank">{{ $plugin->namespace }}</a> <small>as {{ $plugin->shortalias }}</small>
-                        @endif
-                    </td>
-					<td>{{ $plugin->description }}</td>
-					<td><small>{{ $plugin->categories['name'] ?? 'unknown' }}</small></td>
-					<td>{{ $plugin->gpusupport }}</td>
-					<td class="center aligned"><small>@if(!empty($plugin->version_published)) {{ \Carbon\Carbon::parse($plugin->version_published)->format('Y-m-d') }} @endif</small></td>
+                    <td>@if(isset($plugin['namespace'])) {{ $plugin['namespace'] }} @else {{ $plugin['modulename'] }} @endif</td>
+					<td>{{ $plugin['description'] }}</td>
+					<td><small>{{ $plugin['category'] }}</small></td>
+					<td class="center aligned"><small>@if(isset($plugin['releases'][0]['published'])) {{ \Carbon\Carbon::parse($plugin['releases'][0]['published'])->format('Y-m-d') }} @endif</small></td>
 					<td>
 						@php
 							$urls = "";
-							if(!empty($plugin->url_website) && $plugin->url_github != $plugin->url_website) $urls .= '<a href="'.$plugin->url_website.'" target="_blank">Website</a> | ';
-							if(!empty($plugin->url_github)) 	$urls .= '<a href="'.$plugin->url_github.'" target="_blank">Github</a> | ';
-							if(!empty($plugin->url_doom9)) 	$urls .= '<a href="'.$plugin->url_doom9.'"target="_blank">Doom9</a> | ';
-							if(!empty($plugin->url_avswiki)) 	$urls .= '<a href="'.$plugin->url_avswiki.'" target="_blank">AvsWiki</a>';
+							if(isset($plugin['website']))    $urls .= '<a href="'.$plugin['website'].'" target="_blank">Website</a> | ';
+							if(isset($plugin['github'])) 	$urls .= '<a href="'.$plugin['github'].'" target="_blank">Github</a> | ';
+							if(isset($plugin['doom9'])) 	$urls .= '<a href="'.$plugin['doom9'].'"target="_blank">Doom9</a>';
 							$urls = trim(trim(trim($urls), "|"));
 						@endphp
 						{!! $urls !!}

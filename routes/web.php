@@ -29,5 +29,6 @@ Route::prefix('dashboard')->group(function () {
 
 Route::get('/plugins', 	            'PageController@plugins');
 Route::get('/plugins/{id_slug}', 	'PageController@show');
+Route::get('/vsrepogui',            'PageController@vsrepogui');
 #Route::get('/plugins/{namespace}', 	'PluginController');
 #Route::get('/plugins/{post}', 	'PluginController@show');

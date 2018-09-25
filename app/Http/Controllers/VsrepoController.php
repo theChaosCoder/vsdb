@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Plugin;
 use App\Category;
+use App\Vsrepo;
 use Illuminate\Http\Request;
 
 class VsrepoController extends Controller
