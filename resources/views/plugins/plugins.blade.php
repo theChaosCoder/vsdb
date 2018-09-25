@@ -9,6 +9,7 @@
         </a>
 		<a href="/" class="item">Home</a>
 		<a href="#" class="item">VSRepo Gui</a>
+		<a href="https://forum.doom9.org/showthread.php?p=1844512" target="_blank" class="item">VS Portable FATPACK</a>
 		<a href="#" class="item">Plugin statistics</a>
 	</div>
 </div>
@@ -19,12 +20,10 @@
     <div class="column">
         <div class="ui message">
             <div class="header">
-                Welcome to vsdb.top - All your Plugins in one place! <a class="ui orange label">beta version</a>
+                Welcome to vsdb.top - All your <a href="http://www.vapoursynth.com">VapourSynth</a> Plugins in one place! <a class="ui orange label">beta version</a>
             </div>
-            <p>Here you can find plugins & scripts for <a href="http://www.vapoursynth.com">VapourSynth</a>.</p>
             <p>Most of them are also available via the VSRepo plugin manager. For more details visit <a href="https://forum.doom9.org/showthread.php?t=175590">vsrepo - doom9</a> and <a href="https://github.com/vapoursynth/vsrepo">Github</a>.</p>
             <p>If you have questions or suggestions, visit this forum thread <a href="https://forum.doom9.org/showthread.php?t=175702">vsdb - doom9</a>.</p>
-
         </div>
     </div>
 </div>
@@ -44,13 +43,13 @@
 			<thead>
 				<tr>
 					<th></th>
-					<th>Name</th>
+                    <th>Name</th>
+                    <th class="center aligned">type</th>
 					<th class="two wide">Namespace</th>
 					<th>Description</th>
 					<th>Category</th>
 					<th class="center aligned">GPU</th>
 					<th class="center aligned">Published</th>
-					<th class="center aligned">type</th>
 					<th class="two wide">Links</th>
 				</tr>
 			</thead>
@@ -72,7 +71,13 @@
 										<tr>
 											<td>Type</td>
 											<td>{{ $plugin->type }}</td>
+                                        </tr>
+                                        @if($plugin->vs_included)
+                                        <tr>
+											<td>Included Plugin</td>
+											<td><a href="{{ $plugin->url_website }}">Link</a></td>
 										</tr>
+                                        @endif
 
 									</tbody>
 								</table>
@@ -191,7 +196,14 @@
 						</td>'><!-- data-child-value END -->
 
 					<td class="details-control"></td>
-					<td>{{ $plugin->name }}</td>
+                    <td>{{ $plugin->name }}</td>
+                    <td class="center aligned">
+						@if ($plugin->type == "PyScript")
+							<img width=20 height=20 alt='{{ $plugin->type }}' src='https://png.icons8.com/metro/50/000000/source-code.png'>
+						@else
+							<img width=20 height=20 alt='{{ $plugin->type }}' src='https://png.icons8.com/metro/50/000000/dll.png'>
+						@endif
+					</td>
                     <td>@if(empty($plugin->shortalias))
                             {{ $plugin->namespace }}
                         @else
@@ -201,14 +213,7 @@
 					<td>{{ $plugin->description }}</td>
 					<td><small>{{ $plugin->categories['name'] ?? 'unknown' }}</small></td>
 					<td>{{ $plugin->gpusupport }}</td>
-					<td class="center aligned"><small>@empty($plugin->version_published) {{ \Carbon\Carbon::parse($plugin->version_published)->format('Y-m-d') }} @endempty</small></td>
-					<td class="center aligned">
-						@if ($plugin->type == "PyScript")
-							<img width=20 height=20 alt='{{ $plugin->type }}' src='https://png.icons8.com/metro/50/000000/source-code.png'>
-						@else
-							<img width=20 height=20 alt='{{ $plugin->type }}' src='https://png.icons8.com/metro/50/000000/dll.png'>
-						@endif
-					</td>
+					<td class="center aligned"><small>@if(!empty($plugin->version_published)) {{ \Carbon\Carbon::parse($plugin->version_published)->format('Y-m-d') }} @endif</small></td>
 					<td>
 						@php
 							$urls = "";

@@ -53,7 +53,7 @@ class PluginFunctionController extends Controller
 
         $pluginfunction = new PluginFunction($request->all());
         $pluginfunction->save();
-        return redirect('/pluginfunctions')->with('success', 'Plugin-Function has been added');
+        return redirect('/dashboard/pluginfunctions')->with('success', 'Plugin-Function has been added');
     }
 
     /**
@@ -99,7 +99,11 @@ class PluginFunctionController extends Controller
         ]);
         $pluginfunction->fill($request->all());
         $pluginfunction->save();
-        return redirect('/pluginfunctions')->with('success', 'Plugin has been updated');
+
+        if(isset($request['editplugin'])) {
+            return redirect('/dashboard/plugins/'.$request['pluginid'].'/edit')->with('success', 'Plugin has been updated');
+        }
+        return redirect('/dashboard/pluginfunctions')->with('success', 'Plugin has been updated');
     }
 
     /**

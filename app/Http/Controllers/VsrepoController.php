@@ -19,7 +19,7 @@ class VsrepoController extends Controller
      */
     public function list()
     {
-        $plugins = Plugin::orderBy('name', 'asc')->where('vsrepo', 0)->with('categories')->get();
+        $plugins = Plugin::orderBy('name', 'asc')->where('vsrepo', 0)->where('vs_included', 0)->with('categories')->get();
 		return view('vsrepo.list', compact('plugins'));
     }
 
@@ -30,7 +30,7 @@ class VsrepoController extends Controller
      */
     public function generate($id)
     {
-        $plugin = Plugin::where('id', $id)->with('categories')->first();
+        $plugin = Plugin::where('id', $id)->first();
         #return $plugin;
 
         $vspackage['name'] = $plugin->name;
@@ -47,69 +47,57 @@ class VsrepoController extends Controller
         }
         $vspackage['category'] = $plugin->categories['name'];
 
-        $_ver = "";
+        $vs_version = "";
         $vspackage['identifier'] = $plugin->identifier;
         if($plugin->type == "VSPlugin") {
             $vspackage['namespace'] = $plugin->namespace;
-            $_ver = [
-                'win32' => [
-                    'url' => '',
-                    'files' => [
-                        'changeme.dll' => [
-                            'changeme.dll',
-                            "HASH"
-                        ]
-                    ]
-                ],
-                'win64' => [
-                    'url' => '',
-                    'files' => [
-                        'changeme.dll' => [
-                            'changeme.dll',
-                            "HASH"
-                        ]
-                    ]
-                ],
-            ];
+            $vs_version = [
+                        'win32' => [
+                            'url' => '',
+                            'files' => [
+                                'changeme.dll' => [
+                                    'changeme.dll',
+                                    "HASH"
+                                ]
+                            ]
+                        ],
+                        'win64' => [
+                            'url' => '',
+                            'files' => [
+                                'changeme.dll' => [
+                                    'changeme.dll',
+                                    "SHA256"
+                                ]
+                            ]
+                        ],
+                    ];
         }
         if($plugin->type == "PyScript") {
             $vspackage['modulename'] = $plugin->namespace;
             $vspackage['dependencies'] = [];
-            $_ver = [
-                'script' => [
-                    'url' => '',
-                    'files' => [
-                        'changeme.dll' => [
-                            'changeme.dll',
-                            "HASH"
-                        ]
-                    ]
-                ],
-                'win64' => [
-                    'url' => '',
-                    'files' => [
-                        'changeme.dll' => [
-                            'changeme.dll',
-                            "HASH"
-                        ]
-                    ]
-                ],
-            ];
+            $vs_version = [
+                        'script' => [
+                            'url' => '',
+                            'files' => [
+                                'changeme.py' => [
+                                    'changeme.py',
+                                    "SHA256"
+                                ]
+                            ]
+                        ],
+                    ];
         }
 
-        #$_ver = array_values($_ver);
         $vspackage['releases'] = [
+                        'version' => "",
+                        'published' => "",
+                        $vs_version
+                    ];
 
-                'version' => "",
-                'published' => "",
-                $_ver
-
-
-        ];
+        #TODO how to remove key-index in final json output
         #$vspackage['releases'] = array_values($vspackage['releases']);
         #$vspackage =json_encode($vspackage, true);
-        return response()->json($vspackage);
-        #return response($vspackage);
+        return response()->json($vspackage, 200, [], JSON_PRETTY_PRINT);
     }
 
     /**

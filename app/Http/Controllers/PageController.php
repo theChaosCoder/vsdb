@@ -24,7 +24,7 @@ class PageController extends Controller
      */
     public function plugins()
     {
-        $plugins = Plugin::with('functions.categories', 'categories')->limit(300)->get();
+        $plugins = Plugin::with('functions.categories', 'categories')->get();
         #$plugins_tmp =  clone $plugins;
 
         #inject "Plugins" from Collection category
@@ -49,6 +49,7 @@ class PageController extends Controller
                     $p->identifier = $plugin['identifier'];
                     $p->namespace = $plugin['namespace'];
                     $p->gpusupport = $plugin['gpusupport'];
+                    $p->vs_included = $plugin['vs_included'];
                     $p->version_published = $plugin->version_published;
                     $p->shortalias = $plugin['shortalias'];
                     $p->url_github = $plugin['url_github'];
@@ -77,14 +78,13 @@ class PageController extends Controller
 
     /**
      * Display the specified resource.
+     * $id_slug can be id or namespace. Namespace can return multiple records
      *
-     * @param  \App\Plugin  $plugin
+     * @param  mixed  $id_slug
      * @return \Illuminate\Http\Response
      */
     public function show($id_slug)
     {
-        # $id_slug can be id or namespace. Namespace can return multiple records
-
         $plugins = [];
 
         if(intval($id_slug)) {

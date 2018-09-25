@@ -65,13 +65,13 @@
          var table = $('#vsdb').DataTable( {
 			//fixedHeader: true,
 			iDisplayLength: 100,
-         	orderFixed: [4, 'asc'],
+         	orderFixed: [5, 'asc'],
          	rowGroup: {
          		endRender: null,
          		startRender: function ( rows, group ) {
          			return group +' ('+rows.count()+')';
          		},
-         		dataSrc: 4
+         		dataSrc: 5
          	},
 			"order": [[ 1, "asc" ]]
          });
@@ -92,12 +92,6 @@
                  }
              });
 
-          // Handle click on "Expand All" button
-           $('#btn-show-all-children').on('click', function(){
-               // Expand row details
-               table.rows(':not(.parent)').nodes().to$().find('td:first-child').trigger('click');
-           });
-
 			table.on('page.dt', function() {
 			  $('html, body').animate({
 				scrollTop: $(".dataTables_wrapper").offset().top
@@ -108,7 +102,7 @@
 			/* Custom filtering function GPU */
 			$.fn.dataTable.ext.search.push(
 				function( settings, data, dataIndex ) {
-					var gpu =  data[5]; // use data for the gpu column
+					var gpu =  data[6]; // use data for the gpu column
 					var gpucheck = $('#gpu').is(':checked');
 
 					if (!gpucheck)  {
