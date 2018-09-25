@@ -12,6 +12,13 @@
     <meta name="description" content="VSDB - A VapourSynth Scripts & Plugins Database">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-126366564-1');
+    </script>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
