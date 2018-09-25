@@ -97,7 +97,7 @@ class VsrepoController extends Controller
         #TODO how to remove key-index in final json output
         #$vspackage['releases'] = array_values($vspackage['releases']);
         #$vspackage =json_encode($vspackage, true);
-        return response()->json($vspackage, 200, [], JSON_PRETTY_PRINT);
+        return response()->json($vspackage, 200, [], JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES);
     }
 
     /**
