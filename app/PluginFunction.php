@@ -11,7 +11,7 @@ class PluginFunction extends Model
 
     public function plugins(): BelongsTo
 	{
-		return $this->belongsTo(Plugin::class);#, 'plugin_id');
+		return $this->belongsTo(Plugin::class, 'plugin_id');
 	}
 
 	public function categories(): BelongsTo
