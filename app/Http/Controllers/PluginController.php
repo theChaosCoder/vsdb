@@ -119,7 +119,7 @@ class PluginController extends Controller
             return "Sorry, only for Admins";
         }
         # too lazy for select
-        $plugins = Plugin::with('functions.categories')->with('categories')->limit(2)->get();
+        $plugins = Plugin::with('functions.categories')->with('categories')->get();
 
         foreach($plugins as $plugin) {
 
@@ -142,7 +142,7 @@ class PluginController extends Controller
                 unset($pfunc->categories);
             }
 
-            Storage::put('vsrepo-json/json/'.$plugin->namespace.'.json', $plugin->toJson(JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES));
+            Storage::put('vsdb-json/json/'.$plugin->namespace.'.json', $plugin->toJson(JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES));
 
         }
         return "done";
