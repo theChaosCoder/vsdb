@@ -10,6 +10,7 @@
 
     $('#bootstrap-data-table').DataTable({
         lengthMenu: [[30, 50, 100, -1], [30, 50, 100, "All"]],
+		order: [[ 1, "asc" ]]
     });
 
 

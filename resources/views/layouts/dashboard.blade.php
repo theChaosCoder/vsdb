@@ -178,29 +178,40 @@
 
     <!-- Right Panel -->
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/vendor/jquery-2.1.4.min.js') }}" defer></script>
-    <script src="{{ asset('js/popper.min.js') }}" defer></script>
-    <script src="{{ asset('js/plugins.js') }}" defer></script>
-    <script src="{{ asset('js/main.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/vendor/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/plugins.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
 
-    <script src="{{ asset('js/lib/data-table/datatables.min.js') }}" defer></script>
-    <script src="{{ asset('js/lib/data-table/dataTables.bootstrap.min.js') }}" defer></script>
-    <script src="{{ asset('js/lib/data-table/dataTables.buttons.min.js') }}" defer></script>
-    <script src="{{ asset('js/lib/data-table/buttons.bootstrap.min.js') }}" defer></script>
-    <script src="{{ asset('js/lib/data-table/jszip.min.js') }}" defer></script>
-    <script src="{{ asset('js/lib/data-table/pdfmake.min.js') }}" defer></script>
-    <script src="{{ asset('js/lib/data-table/vfs_fonts.js') }}" defer></script>
-    <script src="{{ asset('js/lib/data-table/buttons.html5.min.js') }}" defer></script>
-    <script src="{{ asset('js/lib/data-table/buttons.print.min.js') }}" defer></script>
-    <script src="{{ asset('js/lib/data-table/buttons.colVis.min.js') }}" defer></script>
-    <script src="{{ asset('js/lib/data-table/datatables-init.js') }}" defer></script>
-
+    <script src="{{ asset('js/lib/data-table/datatables.min.js') }}"></script>
+    <script src="{{ asset('js/lib/data-table/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/lib/data-table/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('js/lib/data-table/buttons.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/lib/data-table/jszip.min.js') }}"></script>
+    <script src="{{ asset('js/lib/data-table/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('js/lib/data-table/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('js/lib/data-table/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('js/lib/data-table/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('js/lib/data-table/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('js/lib/data-table/datatables-init.js') }}"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.19/api/page.jumpToData().js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
-          $('#bootstrap-data-table-export').DataTable();
-        } );
+            $.noConflict();
+
+            var position = document.URL.split('#')[1];
+
+            if (position) {
+                console.log(position);
+                var el = $('#' + position);
+                var table = $('#bootstrap-data-table').DataTable();
+                table.page.jumpToData( position, 0 );
+            }
+
+
+        });
     </script>
 
 

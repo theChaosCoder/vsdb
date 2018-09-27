@@ -103,7 +103,7 @@ class PluginFunctionController extends Controller
         if(isset($request['editplugin'])) {
             return redirect('/dashboard/plugins/'.$request['pluginid'].'/edit')->with('success', 'Plugin has been updated');
         }
-        return redirect('/dashboard/pluginfunctions')->with('success', 'Plugin has been updated');
+        return redirect('/dashboard/pluginfunctions#' . $pluginfunction->id)->with('success', 'Plugin has been updated');
     }
 
     /**

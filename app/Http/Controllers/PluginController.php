@@ -91,7 +91,7 @@ class PluginController extends Controller
         ]);
         $plugin->fill($request->all());
         $plugin->save();
-        return redirect('/dashboard/plugins')->with('success', 'Plugin has been updated');
+        return redirect('/dashboard/plugins#' . $plugin->id)->with('success', 'Plugin has been updated');
     }
 
     /**
