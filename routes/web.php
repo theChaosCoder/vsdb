@@ -21,6 +21,7 @@ Route::get('/dashboard', 'PageController@dashboard');
 
 Route::prefix('dashboard')->group(function () {
     Route::resource('/plugins', 		'PluginController');
+    Route::get('/export',               'PluginController@export');
     Route::resource('/categories', 		'CategoryController');
     Route::resource('/pluginfunctions', 'PluginFunctionController');
     Route::get('/vsrepo',               'VsrepoController@list');

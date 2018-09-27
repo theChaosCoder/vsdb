@@ -204,7 +204,6 @@
             var position = document.URL.split('#')[1];
 
             if (position) {
-                console.log(position);
                 var el = $('#' + position);
                 var table = $('#bootstrap-data-table').DataTable();
                 table.page.jumpToData( position, 0 );

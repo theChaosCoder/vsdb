@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Plugin;
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class PluginController extends Controller
 {
@@ -106,4 +108,50 @@ class PluginController extends Controller
         $plugin->delete();
         return redirect('/dashboard/plugins')->with('success', 'Plugin '.$plugin->name.' has been deleted');
     }
+
+    /**
+     * export all plugins to json
+     */
+    public function export()
+    {
+
+        if(!Auth::user()->id == 1) {
+            return "Sorry, only for Admins";
+        }
+        # too lazy for select
+        $plugins = Plugin::with('functions.categories')->with('categories')->limit(2)->get();
+
+        foreach($plugins as $plugin) {
+
+            $plugin->category = $plugin->categories['name']; # TODO I don't like that category is at the bottom of the list.
+            unset($plugin->id);
+            unset($plugin->categories_id);
+            unset($plugin->categories);
+
+            # no vsrepo stuff
+            unset($plugin->dependencies);
+            unset($plugin->releases);
+            unset($plugin->version);
+            unset($plugin->version_published);
+
+            foreach($plugin->functions as $pfunc) {
+                $pfunc->category = $pfunc->categories['name'];
+                unset($pfunc->id);
+                unset($pfunc->plugin_id);
+                unset($pfunc->categories_id);
+                unset($pfunc->categories);
+            }
+
+            Storage::put('vsrepo-json/json/'.$plugin->namespace.'.json', $plugin->toJson(JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES));
+
+        }
+        return "done";
+
+        $dupes = $plugins->groupBy('namespace')->filter(function ($value, $key) {
+            return $value->count() > 1;
+        });
+        return $dupes['mx'];
+
+    }
+
 }
