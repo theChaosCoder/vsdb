@@ -53,11 +53,13 @@ class VsrepoController extends Controller
         if($plugin->type == "VSPlugin") {
             $vspackage['namespace'] = $plugin->namespace;
             $vs_version = [
+                        'version' => "",
+                        'published' => "",
                         'win32' => [
                             'url' => '',
                             'files' => [
                                 'changeme.dll' => [
-                                    'changeme.dll',
+                                    'win32/changeme.dll',
                                     "HASH"
                                 ]
                             ]
@@ -66,7 +68,7 @@ class VsrepoController extends Controller
                             'url' => '',
                             'files' => [
                                 'changeme.dll' => [
-                                    'changeme.dll',
+                                    'win64/changeme.dll',
                                     "SHA256"
                                 ]
                             ]
@@ -77,6 +79,8 @@ class VsrepoController extends Controller
             $vspackage['modulename'] = $plugin->namespace;
             $vspackage['dependencies'] = [];
             $vs_version = [
+                        'version' => "",
+                        'published' => "",
                         'script' => [
                             'url' => '',
                             'files' => [
@@ -90,8 +94,6 @@ class VsrepoController extends Controller
         }
 
         $vspackage['releases'] = [
-                        'version' => "",
-                        'published' => "",
                         $vs_version
                     ];
 
