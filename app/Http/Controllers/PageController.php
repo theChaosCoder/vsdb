@@ -29,7 +29,7 @@ class PageController extends Controller
         #inject "Plugins" from Collection category
         foreach($plugins as $plugin) {
             #return $plugin;
-            if($plugin->category == "Collection" ) {
+            if($plugin->categories['name'] == "Collection" ) {
 
                 foreach($plugin->functions as $func) {
                     #$p = clone $plugin;
