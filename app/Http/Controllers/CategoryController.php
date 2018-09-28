@@ -101,7 +101,7 @@ class CategoryController extends Controller
         if(count($plugin) || count($plugin_function)) {
             return back()->withErrors(['This Category is in use!']);#return redirect('/categories')->with('error', 'Category is in use!');
         }
-        return $plugin_function;
+
         $category->delete();
         return redirect('/dashboard/categories')->with('success', 'Category has been deleted');
     }

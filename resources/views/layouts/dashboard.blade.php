@@ -66,7 +66,7 @@
                         <a href="/dashboard"> <i class="menu-icon fa fa-tachometer-alt"></i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="/"> <i class="menu-icon fa fa-cube"></i>Plugins public</a>
+                        <a href="/" target="_blank"> <i class="menu-icon fa fa-cube"></i>Plugins public</a>
                     </li>
 
 

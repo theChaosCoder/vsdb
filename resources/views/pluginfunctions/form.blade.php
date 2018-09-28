@@ -54,6 +54,7 @@
                     <li class="list-group-item">8, 10, 16 int</li>
                     <li class="list-group-item">32 float</li>
                     <li class="list-group-item">16-32 float</li>
+                    <li class="list-group-item">any</li>
                 </ul>
             </div>
         </div>
@@ -65,7 +66,8 @@
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group">GRAY, YUV, RGB, YCOCG</li>
+                    <li class="list-group-item">GRAY, YUV, RGB, YCOCG</li>
+                    <li class="list-group-item">any</li>
                 </ul>
                 <br>
                 <p class="card-text">You can also specify limitations like this:</p>

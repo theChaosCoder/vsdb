@@ -5,9 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Plugin extends Model
 {
+    use SoftDeletes;
     protected $appends = array('is_collection');
 
 
@@ -29,7 +31,7 @@ class Plugin extends Model
      * Check if a plugin belongs to a Collection category
      * Currently hardcoded id!
      */
-    public function getIsCollectionAttribute()
+    public function getIsCollectionAttribute(): bool
     {
         if($this->categories_id == 4) {
             return true;
