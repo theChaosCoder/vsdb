@@ -7,6 +7,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Filesystem\Filesystem;
 
 class PluginController extends Controller
 {
@@ -104,7 +105,6 @@ class PluginController extends Controller
      */
     public function destroy(Plugin $plugin)
     {
-
         $plugin->delete();
         return redirect('/dashboard/plugins')->with('success', 'Plugin '.$plugin->name.' has been deleted');
     }
@@ -114,16 +114,25 @@ class PluginController extends Controller
      */
     public function export()
     {
-
-        if(!Auth::user()->id == 1) {
+        if(Auth::user()->id != 1) {
             return "Sorry, only for Admins";
         }
+
         # too lazy for select
         $plugins = Plugin::with('functions.categories')->with('categories')->get();
+
+        # some plugins share the same namespace
+        $dupes = $plugins->groupBy('namespace')->filter(function ($value, $key) {
+            return $value->count() > 1;
+        });
+
+        $file = new Filesystem;
+        $file->cleanDirectory(storage_path().'/app/vsdb-json/json/');
 
         foreach($plugins as $plugin) {
 
             $plugin->category = $plugin->categories['name']; # TODO I don't like that category is at the bottom of the list.
+            $id = $plugin->id;
             unset($plugin->id);
             unset($plugin->categories_id);
             unset($plugin->categories);
@@ -142,16 +151,17 @@ class PluginController extends Controller
                 unset($pfunc->categories);
             }
 
-            Storage::put('vsdb-json/json/'.$plugin->namespace.'.json', $plugin->toJson(JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES));
+
+            #return $plugin;
+            if(isset($dupes[$plugin->namespace])) { # rename duplicates to "namespace_ID.json"
+                $filepath = 'vsdb-json/json/'.$plugin->namespace.'_'.$id.'.json';
+            } else {
+                $filepath = 'vsdb-json/json/'.$plugin->namespace.'.json';
+            }
+            Storage::put($filepath, $plugin->toJson(JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES));
 
         }
         return "done";
-
-        $dupes = $plugins->groupBy('namespace')->filter(function ($value, $key) {
-            return $value->count() > 1;
-        });
-        return $dupes['mx'];
-
     }
 
 }
