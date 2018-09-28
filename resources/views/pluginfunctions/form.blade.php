@@ -64,7 +64,16 @@
                 <strong class="card-title">Color space <small><span class="badge badge-success float-right mt-1">copy and paste example</span></small></strong>
             </div>
             <div class="card-body">
-                <p class="card-text">GRAY, YUV, RGB, YCOCG</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group">GRAY, YUV, RGB, YCOCG</li>
+                </ul>
+                <br>
+                <p class="card-text">You can also specify limitations like this:</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">GRAY, YUV420, YUV422, YUV440, YUV444</li>
+                    <li class="list-group-item">GRAY, YUV444, RGB</li>
+                </ul>
+
             </div>
         </div>
     </div>
