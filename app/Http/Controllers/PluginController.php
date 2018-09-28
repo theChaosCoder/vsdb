@@ -119,7 +119,8 @@ class PluginController extends Controller
         }
 
         # too lazy for select
-        $plugins = Plugin::with('functions.categories')->with('categories')->get();
+        $plugins = Plugin::with('functions.categories')->with('categories')->get()
+            ->makeHidden(['categories_id', 'is_collection', 'id', 'categories', 'dependencies', 'releases', 'version', 'version_published']);
 
         # some plugins share the same namespace
         $dupes = $plugins->groupBy('namespace')->filter(function ($value, $key) {
@@ -133,24 +134,11 @@ class PluginController extends Controller
 
             $plugin->category = $plugin->categories['name']; # TODO I don't like that category is at the bottom of the list.
             $id = $plugin->id;
-            unset($plugin->id);
-            unset($plugin->categories_id);
-            unset($plugin->categories);
-
-            # no vsrepo stuff
-            unset($plugin->dependencies);
-            unset($plugin->releases);
-            unset($plugin->version);
-            unset($plugin->version_published);
 
             foreach($plugin->functions as $pfunc) {
                 $pfunc->category = $pfunc->categories['name'];
-                unset($pfunc->id);
-                unset($pfunc->plugin_id);
-                unset($pfunc->categories_id);
-                unset($pfunc->categories);
+                $pfunc->makeHidden(['plugin_id', 'categories_id', 'id', 'categories']);
             }
-
 
             #return $plugin;
             if(isset($dupes[$plugin->namespace])) { # rename duplicates to "namespace_ID.json"

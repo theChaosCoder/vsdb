@@ -80,7 +80,11 @@
                     <li>
                         <a href="/dashboard/categories"> <i class="menu-icon fa fa-layer-group"></i>Categories</a>
                     </li>
-
+                    @auth
+                    <li>
+                        <a href="/dashboard/export"> <i class="menu-icon fa fa-file-export"></i>Export plugins</a>
+                    </li>
+                    @endauth
 
                     <h3 class="menu-title">VSRepo</h3><!-- /.menu-title -->
                     <li>
