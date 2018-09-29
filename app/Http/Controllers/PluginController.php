@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Plugin;
 use App\Category;
+use App\Vsrepo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Filesystem\Filesystem;
 
 class PluginController extends Controller
@@ -150,6 +152,59 @@ class PluginController extends Controller
 
         }
         return "done";
+    }
+
+
+    /**
+     * Sync releses, vserion, published, dependencies from vspackages.json (storage folder)
+     */
+    public function sync()
+    {
+        if(Auth::user()->id != 1) {
+            return "Sorry, only for Admins";
+        }
+
+        $repo_plugins = Vsrepo::GetVspackage();
+        $plugins = Plugin::where('vs_included', 0)->get();
+
+        foreach($plugins as $plugin) {
+            foreach($repo_plugins as $repo_plugin) {
+
+                # For scripts: VSRepo-modulename is equal to DB-Plugin->namespace
+                if(isset($repo_plugin['identifier']) && ($plugin->identifier == $repo_plugin['identifier'])) {
+
+                    if(isset($repo_plugin['namespace'])  && ($plugin->namespace == $repo_plugin['namespace']) || # is a plugin OR
+                       isset($repo_plugin['modulename']) && ($plugin->namespace == $repo_plugin['modulename']))  # is a script (has no namespace attribute in vspackage)
+                    {
+                            if(isset($repo_plugin['releases'][0]['version'])){
+                                $plugin->version = $repo_plugin['releases'][0]['version'];
+                            }
+                            if(isset($repo_plugin['releases'][0]['published'])){
+                                $plugin->version_published = $repo_plugin['releases'][0]['published'];
+                            }
+                            $plugin->vsrepo = true;
+                            $plugin->releases = json_encode($repo_plugin['releases']);
+
+                            if(isset($repo_plugin['dependencies'])) {
+                                $plugin->dependencies = rtrim(implode(',', $repo_plugin['dependencies']), ',');
+                            }
+                    }
+
+                    # ~100 queries, but who cares ;-)
+                    DB::table('plugins')->where('id', $plugin->id)
+                            ->update([
+                                'version' => $plugin->version,
+                                'version_published' => $plugin->version_published,
+                                'vsrepo' => $plugin->vsrepo,
+                                'dependencies' => $plugin->dependencies,
+                                'releases' => $plugin->releases,
+                            ]);
+                }
+
+            }
+        }
+        return "<h1>synced</h1>";
+
     }
 
 }

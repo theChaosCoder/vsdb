@@ -94,7 +94,7 @@
                         <a href="/dashboard/#"> <i class="menu-icon fa fa-compact-disc"></i>Show diff</a>
                     </li>
                     <li>
-                        <a href="/dashboard/#"> <i class="menu-icon fa fa-sync"></i>Repo sync</a>
+                        <a href="/dashboard/sync"> <i class="menu-icon fa fa-sync"></i>Repo sync</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
