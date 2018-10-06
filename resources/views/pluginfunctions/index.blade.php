@@ -22,6 +22,7 @@
                         <th>Color space</th>
                         <th>GPU support</th>
                         <th>Action</th>
+                        <th>Updated</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,6 +44,7 @@
                                 {!! Form::close() !!}
                             </div>
                         </td>
+                        <td><small>{{ $pfunction->updated_at }}</small></td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -17,8 +17,8 @@
                         <th>Namespace</th>
                         <th>Identifier</th>
                         <th>Category</th>
-                        <th class="center aligned">type</th>
-                        <th>Actions</th>
+                        <th class="text-center">type</th>
+                        <th class="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,9 +36,9 @@
                                 <img width=20 height=20 alt='{{ $plugin->type }}' src='https://png.icons8.com/metro/50/000000/dll.png'>
                             @endif
                         </td>
-                        <td>
+                        <td class="text-center">
                             <div class="btn-group">
-                                <a href="/dashboard/vsrepo/{{ $plugin->id }}/generate" class="btn btn-secondary btn-sm" role="button">generate package</a>
+                                <a href="/dashboard/vsrepo/{{ $plugin->id }}/generate" target="_blank" class="btn btn-secondary btn-sm" role="button">generate package</a>
                             </div>
                         </td>
                     </tr>

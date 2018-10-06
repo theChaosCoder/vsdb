@@ -1,27 +1,7 @@
 @extends('layouts.app_plugins')
 @section('content')
 
-
-<div class="ui fixed_ inverted menu">
-	<div class="ui container">
-		<a href="/" class="header item">
-            <img class="logo" src="{{ asset('images/vsdb_icon.png') }}" style="margin-right:3px"> VSDB - VapourSynth Database
-        </a>
-		<a href="/" class="item">Home</a>
-		<a href="#" class="item">VSRepo Gui</a>
-		<a href="#" class="item">Plugin statistics</a>
-	</div>
-</div>
-
-
-
-
-
-
-
-
-
-
+@include('partials.fe_nav')
 
 <div class="ui grid vsdb-full">
 	<div class="column">

@@ -62,7 +62,7 @@
                             </div>
                         </td>
                         <td><small>{{ $plugin->created_at }}</small></td>
-                        <td><small>{{ $plugin->modiefied_at }}</small></td>
+                        <td><small>{{ $plugin->updated_at }}</small></td>
                     </tr>
                         @endforeach
                 </tbody>
