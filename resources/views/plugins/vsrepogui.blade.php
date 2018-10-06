@@ -151,8 +151,12 @@
 						@else
 							<img width=20 height=20 alt='{{ $plugin['type'] }}' src='https://png.icons8.com/metro/50/000000/dll.png'>
 						@endif
-					</td>
-                    <td>@if(isset($plugin['namespace'])) {{ $plugin['namespace'] }} @else {{ $plugin['modulename'] }} @endif</td>
+                    </td>
+                    <td>@if(isset($plugin['namespace']))
+                            <a href="https://github.com/vapoursynth/vsrepo/blob/master/local/{{ $plugin['namespace'] }}.json" target="_blank">{{ $plugin['namespace'] }}</a>
+                        @else
+                            <a href="https://github.com/vapoursynth/vsrepo/blob/master/local/{{ $plugin['modulename'] }}.json" target="_blank">{{ $plugin['modulename'] }}</a>
+                        @endif</td>
 					<td>{{ $plugin['description'] }}</td>
 					<td><small>{{ $plugin['category'] }}</small></td>
 					<td class="center aligned"><small>@if(isset($plugin['releases'][0]['published'])) {{ \Carbon\Carbon::parse($plugin['releases'][0]['published'])->format('Y-m-d') }} @endif</small></td>
