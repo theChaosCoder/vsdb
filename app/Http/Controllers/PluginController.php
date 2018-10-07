@@ -144,9 +144,9 @@ class PluginController extends Controller
 
             #return $plugin;
             if(isset($dupes[$plugin->namespace])) { # rename duplicates to "namespace_ID.json"
-                $filepath = 'vsdb-json/json/'.$plugin->namespace.'_'.$id.'.json';
+                $filepath = 'vsdb-json/json/'.strtolower($plugin->namespace).'_'.$id.'.json';
             } else {
-                $filepath = 'vsdb-json/json/'.$plugin->namespace.'.json';
+                $filepath = 'vsdb-json/json/'.strtolower($plugin->namespace).'.json';
             }
             Storage::put($filepath, $plugin->toJson(JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES));
 
