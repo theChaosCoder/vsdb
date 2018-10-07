@@ -47,8 +47,9 @@ class PluginFunctionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            #'plugin_id' => 'required|integer',
-            'name' =>       'required|max:191',
+            'plugin_id' =>  'required|integer',
+            'name' =>       'unique:plugin_functions,name,null,plugin_id,plugin_id,'.$request->plugin_id.'|required|max:191',
+            #unique sql -> select count(*) as aggregate from `plugin_functions` where `name` = abc and `plugin_id` = 1
         ]);
 
         $pluginfunction = new PluginFunction($request->all());
