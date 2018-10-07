@@ -32,7 +32,6 @@ class VsrepoController extends Controller
     public function generate($id)
     {
         $plugin = Plugin::where('id', $id)->first();
-        #return $plugin;
 
         $vspackage['name'] = $plugin->name;
         $vspackage['type'] = $plugin->type;
@@ -47,10 +46,15 @@ class VsrepoController extends Controller
             $vspackage['doom9'] = $plugin->url_doom9;
         }
         $vspackage['category'] = $plugin->categories['name'];
+        if(empty($vspackage['category']) || $vspackage['category'] == "unknown") {
+            $vspackage['category'] = "Other";
+        }
 
         $vs_version = "";
         $vspackage['identifier'] = $plugin->identifier;
-        if($plugin->type == "VSPlugin") {
+
+        if($plugin->type == "VSPlugin")
+        {
             $vspackage['namespace'] = $plugin->namespace;
             $vs_version = [
                         'version' => "",
@@ -60,7 +64,7 @@ class VsrepoController extends Controller
                             'files' => [
                                 'changeme.dll' => [
                                     'win32/changeme.dll',
-                                    "HASH"
+                                    "SHA256"
                                 ]
                             ]
                         ],
@@ -75,7 +79,8 @@ class VsrepoController extends Controller
                         ],
                     ];
         }
-        if($plugin->type == "PyScript") {
+        if($plugin->type == "PyScript")
+        {
             $vspackage['modulename'] = $plugin->namespace;
             $vspackage['dependencies'] = [];
             $vs_version = [
@@ -93,13 +98,8 @@ class VsrepoController extends Controller
                     ];
         }
 
-        $vspackage['releases'] = [
-                        $vs_version
-                    ];
+        $vspackage['releases'] = [$vs_version];
 
-        #TODO how to remove key-index in final json output
-        #$vspackage['releases'] = array_values($vspackage['releases']);
-        #$vspackage =json_encode($vspackage, true);
         return response()->json($vspackage, 200, [], JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES);
     }
 
