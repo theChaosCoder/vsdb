@@ -151,7 +151,10 @@ class PluginController extends Controller
             Storage::put($filepath, $plugin->toJson(JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES));
 
         }
-        return "done";
+
+        # check if something has changed with git diff
+        $check = shell_exec("cd " . storage_path() . "/app/vsdb-json && git diff");
+        return "<h2>done</h2> <pre><br>" . $check;
     }
 
 
