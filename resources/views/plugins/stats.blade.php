@@ -28,13 +28,14 @@
                     enabled: true
                 },
                 series: [{
+                    name: "Plugin/Script count",
                     data: {{ $count['categories']['count'] }}
                 }],
                 xaxis: {
                     categories: {!! $count['categories']['name'] !!},
                 },
                 yaxis: {
-                    max: '150',
+                    max: 130,
                 },
         }
 
