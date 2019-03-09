@@ -106,7 +106,16 @@ class PageController extends Controller
     {
         $plugins = Vsrepo::GetVspackage();
         return view('plugins.vsrepogui', compact('plugins'));
+    }
 
+
+     /**
+     *
+     */
+    public function avsrepogui()
+    {
+        $plugins = Vsrepo::GetAvspackage();
+        return view('plugins.avsrepogui', compact('plugins'));
     }
 
 
