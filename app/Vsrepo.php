@@ -23,7 +23,7 @@ class Vsrepo extends Model
         #TODO return status codes
         $download_url = 'http://www.vapoursynth.com/vsrepo/vspackages.zip';
 
-        $vs_headers = Cache::remember('vs_headers', 60*24, function() use ($download_url) { # cache 24h
+        $vs_headers = Cache::remember('vs_headers', now()->addHours(24), function() use ($download_url) { # cache 24h
             return get_headers($download_url, 1);
         });
         #$vs_headers = get_headers($download_url, 1);
@@ -66,7 +66,7 @@ class Vsrepo extends Model
         $download_url = 'http://vsdb.top/avspackages.zip';
         $path = 'avsrepo/';
 
-        $avs_headers = Cache::remember('avs_headers', 60*24, function() use ($download_url) { # cache 24h
+        $avs_headers = Cache::remember('avs_headers', now()->addHours(24), function() use ($download_url) { # cache 24h
             return get_headers($download_url, 1);
         });
 
