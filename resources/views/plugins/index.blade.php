@@ -34,7 +34,7 @@
                         <td>{{ $plugin->namespace }}</td>
                         <td><small>{{ $plugin->categories['name'] }}</small></td>
                         <td>{{ $plugin->gpusupport }}</td>
-                        <td class="text-center"><small>@empty($plugin->version_published) {{ \Carbon\Carbon::parse($plugin->version_published)->format('Y-m-d') }} @endempty</small></td>
+                        <td class="text-center"><small>@if(!empty($plugin->version_published)) {{ \Carbon\Carbon::parse($plugin->version_published)->format('Y-m-d') }} @endif</small></td>
                         <td class="text-center">
                             @if ($plugin->type == "PyScript")
                                 <img width=20 height=20 alt='{{ $plugin->type }}' src='https://png.icons8.com/metro/50/000000/source-code.png'>
