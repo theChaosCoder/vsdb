@@ -99,7 +99,7 @@
 										<tr>
 											<td>{{ $releases['version'] }}</td>
 											<td>
-                                                @isset($releases['published']) {{ \Carbon\Carbon::parse($releases['published'])->format('Y-m-d') }} @endisset
+                                                @if(!empty($releases['published'])) {{ \Carbon\Carbon::parse($releases['published'])->format('Y-m-d') }} @else - @endif
 											</td>
 											<td>
 												@isset($releases['win32']['url'])	<a href="{{ $releases['win32']['url'] }}">win32</a>	  @endisset
