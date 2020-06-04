@@ -153,9 +153,9 @@
                             <td>{{ $plugin->name }}</td>
                             <td class="center aligned">
                                 @if ($plugin->type == "PyScript")
-                                    <img width=20 height=20 alt='{{ $plugin->type }}' src='https://png.icons8.com/metro/50/000000/source-code.png'>
+                                    <i class="far fa-file-alt" title="{{ $plugin->type }}"></i>
                                 @else
-                                    <img width=20 height=20 alt='{{ $plugin->type }}' src='https://png.icons8.com/metro/50/000000/dll.png'>
+                                    <i class="fas fa-file-powerpoint" title="{{ $plugin->type }}"></i>
                                 @endif
                             </td>
                             <td>@if(empty($plugin->shortalias))

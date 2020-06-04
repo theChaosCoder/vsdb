@@ -11,6 +11,7 @@
     <title>{{ config('app.name', 'VSDB - Vapoursynth Database') }}</title>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126366564-1"></script>
+    <script src="https://kit.fontawesome.com/b9a3ac6f3e.js" crossorigin="anonymous"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}

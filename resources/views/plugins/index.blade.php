@@ -37,9 +37,9 @@
                         <td class="text-center"><small>@if(!empty($plugin->version_published)) {{ \Carbon\Carbon::parse($plugin->version_published)->format('Y-m-d') }} @endif</small></td>
                         <td class="text-center">
                             @if ($plugin->type == "PyScript")
-                                <img width=20 height=20 alt='{{ $plugin->type }}' src='https://png.icons8.com/metro/50/000000/source-code.png'>
+                                <i class="far fa-file-alt" title="{{ $plugin->type }}"></i>
                             @else
-                                <img width=20 height=20 alt='{{ $plugin->type }}' src='https://png.icons8.com/metro/50/000000/dll.png'>
+                                <i class="fas fa-file-powerpoint" title="{{ $plugin->type }}"></i>
                             @endif
                         </td>
                         <td>
