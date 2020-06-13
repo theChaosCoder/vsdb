@@ -77,7 +77,7 @@
 								</h4>
 								@if(!empty($plugin->releases))
 								<div class="ui icon message">
-									<i class="icon"><img width=40 height=40 src="https://png.icons8.com/metro/50/000000/box.png"></i>
+									<i class="icon"><i class="fas fa-box"></i></i>
 									<div class="content">
 										<div class="header">
 											VSRrepo is available
@@ -123,7 +123,7 @@
 
 								@else
 								<div class="ui icon message">
-									<i class="icon"><img width=40 height=40 src="https://png.icons8.com/metro/50/000000/box.png"></i>
+									<i class="icon"><i class="fas fa-box"></i></i>
 									<div class="content">
 										<div class="header">
 											VSRrepo is NOT available! :-(
