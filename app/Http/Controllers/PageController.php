@@ -161,7 +161,10 @@ class PageController extends Controller
         $c = [];
         foreach($pfunc_group as $key => $item)
         {
-            $c[$categories->where('id', $key)->first()->name] = ['count' => $item->count()];
+			// TODO check why this is null sometimes
+			if(!is_null($categories->where('id', $key)->first())) {
+				$c[$categories->where('id', $key)->first()->name] = ['count' => $item->count()];
+			}
         }
 
         foreach($plugins_group as $key => $item)
