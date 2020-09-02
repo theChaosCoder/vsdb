@@ -20,8 +20,12 @@ class Vsrepo extends Model
      */
     public function scopeGetVspackage()
 	{
+        $vspackages_zip = "vspackages3.zip";
+        $vspackages     = "vspackages3.json";
+
+
         #TODO return status codes
-        $download_url = 'http://www.vapoursynth.com/vsrepo/vspackages.zip';
+        $download_url = 'http://www.vapoursynth.com/vsrepo/'.$vspackages_zip;
 
         $vs_headers = Cache::remember('vs_headers', now()->addHours(24), function() use ($download_url) { # cache 24h
             return get_headers($download_url, 1);
@@ -29,12 +33,12 @@ class Vsrepo extends Model
         #$vs_headers = get_headers($download_url, 1);
 
         if(isset($vs_headers['Last-Modified']) && Storage::exists('vsrepo/vsrepo-lastmod')) {
-            if((Storage::get('vsrepo/vsrepo-lastmod') == $vs_headers['Last-Modified']) && Storage::exists('vsrepo/vspackages.json')) { # if local == remote
-                $json = json_decode(Storage::get('vsrepo/vspackages.json'), true);
-                if($json['file-format'] != "2") {
+            if((Storage::get('vsrepo/vsrepo-lastmod') == $vs_headers['Last-Modified']) && Storage::exists('vsrepo/'.$vspackages)) { # if local == remote
+                $json = json_decode(Storage::get('vsrepo/'.$vspackages), true);
+                if($json['file-format'] != "3") {
                     return ['name' => 'format has changed'];
                 }
-                return json_decode(Storage::get('vsrepo/vspackages.json'), true)['packages'];
+                return json_decode(Storage::get('vsrepo/'.$vspackages), true)['packages'];
             }
         }
 
@@ -42,18 +46,18 @@ class Vsrepo extends Model
         if(isset($vs_headers['Last-Modified'])) {
             $vspackage_file = file_get_contents($download_url);
 
-            Storage::put('vsrepo/vspackages.zip', $vspackage_file);
+            Storage::put('vsrepo/'.$vspackages_zip, $vspackage_file);
             Storage::put('vsrepo/vsrepo-lastmod', $vs_headers['Last-Modified']);
 
             $zip = new ZipArchive;
-            if ($zip->open(Storage::path('vsrepo/vspackages.zip')) === TRUE) {
+            if ($zip->open(Storage::path('vsrepo/'.$vspackages_zip)) === TRUE) {
                 $zip->extractTo(Storage::path('vsrepo/'));
                 $zip->close();
             } else {
                 return ' error zip';
             }
 
-            return json_decode(Storage::get('vsrepo/vspackages.json'), true)['packages'];
+            return json_decode(Storage::get('vsrepo/'.$vspackages), true)['packages'];
         }
         return [];
     }
