@@ -148,7 +148,11 @@
                     <td class="center aligned">
 						@if ($plugin['type'] == "PyScript")
                             <i class="far fa-file-alt" title="{{ $plugin['type'] }}"></i>
-						@else
+                        @endif
+                        @if ($plugin['type'] == "PyWheel")
+                            <i class="fas fa-cube" title="{{ $plugin['type'] }}"></i>
+                        @endif
+                        @if ($plugin['type'] == "VSPlugin")
                             <i class="fas fa-file-powerpoint" title="{{ $plugin['type'] }}"></i>
 						@endif
                     </td>
