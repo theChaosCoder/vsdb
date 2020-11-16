@@ -167,7 +167,7 @@
 					<td>
 						@php
 							$urls = "";
-							if(isset($plugin['website']))    $urls .= '<a href="'.$plugin['website'].'" target="_blank">Website</a> | ';
+							if(isset($plugin['website']))   $urls .= '<a href="'.$plugin['website'].'" target="_blank">Website</a> | ';
 							if(isset($plugin['github'])) 	$urls .= '<a href="'.$plugin['github'].'" target="_blank">Github</a> | ';
 							if(isset($plugin['doom9'])) 	$urls .= '<a href="'.$plugin['doom9'].'"target="_blank">Doom9</a>';
 							$urls = trim(trim(trim($urls), "|"));

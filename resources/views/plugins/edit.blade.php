@@ -44,7 +44,7 @@
                                 <td>
                                     <div class="btn-group">
                                         <a href="/dashboard/pluginfunctions/{{ $pfunction->id }}/edit" class="btn btn-secondary btn-sm" role="button">edit</a>
-                                        {!! Form::open(['route' => ['pluginfunctions.destroy', $pfunction->id, "pluginid" => $plugin->id, "editplugin"], 'method'  => 'DELETE']) !!}
+                                        {!! Form::open(['route' => ['pluginfunctions.destroy', $pfunction->id, "pluginid" => $plugin->id, "editplugin"], 'method'  => 'DELETE', 'onclick' => 'return confirm("Delete '.$pfunction->name.' ?")']) !!}
                                         {!! Form::submit('delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                         {!! Form::close() !!}
                                     </div>

@@ -56,7 +56,7 @@
                         <td>
                             <div class="btn-group">
                                 <a href="/dashboard/plugins/{{ $plugin->id }}/edit" class="btn btn-secondary btn-sm" role="button">edit</a>
-                                {!! Form::open(['route' => ['plugins.destroy', $plugin->id], 'method'  => 'DELETE']) !!}
+                                {!! Form::open(['route' => ['plugins.destroy', $plugin->id], 'method'  => 'DELETE', 'onclick' => 'return confirm("Delete '.$plugin->name.' ?")']) !!}
                                 {!! Form::submit('delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                 {!! Form::close() !!}
                             </div>
