@@ -42,7 +42,7 @@ class PageController extends Controller
 
                     $p->name = $func->name;
                     $p->categories_id = $func->categories_id;
-                    $p->categories['name'] = $func->categories['name'];
+                    $p->categories['name'] = '';#$func->categories['name'];
                     $p->description = $func['description'];
                     $p->type = $plugin['type'];
                     $p->identifier = $plugin['identifier'];
@@ -94,7 +94,7 @@ class PageController extends Controller
             $plugins = Plugin::with('functions.categories')->where('namespace', $id_slug)->get();
         }
 
-        return view('plugins.show', compact('plugins', 'categories'));
+        return view('plugins.show', compact('plugins'));
 
     }
 

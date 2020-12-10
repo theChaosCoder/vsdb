@@ -30,8 +30,8 @@
                     <tr>
                         <td>{{ $pfunction->id }}</td>
                         <td>{{ $pfunction->name }}</td>
-                        <td>{{ $pfunction->plugins['name'] }}</td>
-                        <td><small>{{ $pfunction->categories['name'] }}</small></td>
+                        <td>{{ $pfunction->plugins['name'] ?? "" }}</td>
+                        <td><small>{{ $pfunction->categories['name'] ?? "" }}</small></td>
                         <td><small>{{ $pfunction->description }}</small></td>
                         <td>{{ $pfunction->bitdepth }}</td>
                         <td>{{ $pfunction->colorspace }}</td>

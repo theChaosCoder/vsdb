@@ -25,7 +25,7 @@
                         <td>
                             <div class="btn-group">
                                 <a href="/dashboard/categories/{{ $category->id }}/edit" class="btn btn-secondary btn-sm" role="button">edit</a>
-                                {!! Form::open(['route' => ['categories.destroy', $category->id], 'method'  => 'DELETE']) !!}
+                                {!! Form::open(['route' => ['categories.destroy', $category->id], 'method'  => 'DELETE', 'onclick' => 'return confirm("Delete '.$category->name.' ?")' ]) !!}
                                 {!! Form::submit('delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                 {!! Form::close() !!}
                             </div>
