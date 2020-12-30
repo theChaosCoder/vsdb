@@ -169,7 +169,7 @@
 											<td class="center aligned">{{ $pfunction['bitdepth'] ?: 'unknown' }}</td>
                                             <td class="center aligned">{{ $pfunction['colorspace'] ?: 'unknown' }}</td>
                                             @if(!empty($plugin->categories['name']))
-                                            <td class="center aligned">{{ $pfunction->categories['name'] ?: 'unknown' }}</td>
+                                            <td class="center aligned">{{ $pfunction->categories['name'] ?? 'unknown' }}</td>
                                             @endif
 											<td>{{ $pfunction['description'] ?: '-' }}</td>
 										</tr>
