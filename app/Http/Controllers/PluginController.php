@@ -138,7 +138,7 @@ class PluginController extends Controller
             $id = $plugin->id;
 
             foreach($plugin->functions as $pfunc) {
-                $pfunc->category = $pfunc->categories['name'];
+                $pfunc->category = $pfunc->categories['name'] ?? "";
                 $pfunc->makeHidden(['plugin_id', 'categories_id', 'id', 'categories']);
             }
 
