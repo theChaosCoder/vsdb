@@ -154,9 +154,9 @@
 						@endif
                     </td>
                     <td>@if(isset($plugin['namespace']))
-                            <a href="https://github.com/theChaosCoder/avsrepo/tree/master/local/{{ $plugin['namespace'] }}.json" target="_blank">{{ $plugin['namespace'] }}</a>
+                            <a href="https://github.com/theChaosCoder/avsrepo/tree/master/packages/{{ $plugin['namespace'] }}.json" target="_blank">{{ $plugin['namespace'] }}</a>
                         @else
-                            <a href="https://github.com/theChaosCoder/avsrepo/tree/master/local/{{ $plugin['modulename'] }}.json" target="_blank">{{ $plugin['modulename'] }}</a>
+                            <a href="https://github.com/theChaosCoder/avsrepo/tree/master/packages/{{ $plugin['modulename'] }}.json" target="_blank">{{ $plugin['modulename'] }}</a>
                         @endif</td>
 					<td>{{ $plugin['description'] }}</td>
 					<td><small>{{ $plugin['category'] }}</small></td>
