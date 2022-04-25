@@ -12,12 +12,13 @@
     <meta name="description" content="VSDB - A VapourSynth Scripts & Plugins Database">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCHKY5D6VP"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'UA-126366564-1');
+        gtag('config', 'G-YCHKY5D6VP');
     </script>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

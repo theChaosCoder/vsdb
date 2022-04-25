@@ -32,7 +32,7 @@
                         <td>{{ $plugin->id }}</td>
                         <td>{{ $plugin->name }}</td>
                         <td>{{ $plugin->namespace }}</td>
-                        <td><small>{{ $plugin->categories['name'] }}</small></td>
+                        <td><small>{{ $plugin->categories['name'] ?? '' }}</small></td>
                         <td>{{ $plugin->gpusupport }}</td>
                         <td class="text-center"><small>@if(!empty($plugin->version_published)) {{ \Carbon\Carbon::parse($plugin->version_published)->format('Y-m-d') }} @endif</small></td>
                         <td class="text-center">

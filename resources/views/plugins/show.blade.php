@@ -31,7 +31,7 @@
                                         </tr>
                                         <tr>
                                             <td>Category</td>
-                                            <td>{{ $plugin->categories['name'] }}</td>
+                                            <td>{{ $plugin->categories['name'] ?? '' }}</td>
                                         </tr>
                                         <tr>
                                             <td>Description</td>
